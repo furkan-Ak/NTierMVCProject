@@ -54,5 +54,11 @@ namespace NtierMVCProject.Controllers
                 return RedirectToAction("WriterLoginMain");
             }
         }
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Heading","Default");
+        }
     }
 }

@@ -14,7 +14,8 @@ namespace NtierMVCProject.Controllers
     {
         HeadingManager headingManager = new HeadingManager(new EfHeadingDal());
         CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-       
+        Context c = new Context();
+        int id;
         public ActionResult WriterProfile()
         {
             return View();
@@ -22,9 +23,9 @@ namespace NtierMVCProject.Controllers
 
         public ActionResult MyHeading(string p)
         {
-            Context c = new Context();  
             p = (string)Session["WriterMail"];
             var writeridinfo = c.Writers.Where(x => x.WriterMail == p).Select(y => y.WriterID).FirstOrDefault();
+            id = writeridinfo;
             var values = headingManager.GetListByWriter(writeridinfo);
             return View(values);
         }
@@ -32,7 +33,8 @@ namespace NtierMVCProject.Controllers
 
         public ActionResult NewHeading()
         {
-           
+
+           ViewBag.VBid=id;
             List<SelectListItem> valuecategory = (from x in categoryManager.GetList()
                                                   select new SelectListItem
                                                   {
@@ -44,11 +46,10 @@ namespace NtierMVCProject.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult NewHeading( Heading heading,string a)
+        public ActionResult NewHeading( Heading heading)
         {
-            Context c = new Context();
-            a = (string)Session["WriterMail"];
-            var writeridinfo = c.Writers.Where(x => x.WriterMail == a).Select(y => y.WriterID).FirstOrDefault();
+            string writermailinfo= (string)Session["WriterMail"];
+            var writeridinfo = c.Writers.Where(x => x.WriterMail == writermailinfo).Select(y => y.WriterID).FirstOrDefault();
             heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             heading.WriterID = writeridinfo;
             heading.HeadingStatus = true;
@@ -84,5 +85,11 @@ namespace NtierMVCProject.Controllers
             headingManager.HeadingDelete(value);
             return RedirectToAction("MyHeading");
         }
+        public ActionResult AllHeading()
+        {
+            var headings = headingManager.GetList();
+            return View(headings);
+        }
+
     }
 }
