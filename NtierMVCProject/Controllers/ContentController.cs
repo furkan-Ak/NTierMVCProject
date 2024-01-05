@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,11 @@ namespace NtierMVCProject.Controllers
         public ActionResult ContentByHeading(int id)
         {   
             var values= contentManager.GetListByHeadingID(id);
+            return View(values);
+        }
+        public ActionResult GettAllContent(string p="") // content filter
+        {
+            var values = contentManager.GetList(p);
             return View(values);
         }
     }

@@ -17,14 +17,14 @@ namespace NtierMVCProject.Controllers
         MessageValidator messageValidator = new MessageValidator();
 
         [Authorize]
-        public ActionResult MessageInbox()
+        public ActionResult MessageInbox(string p)
         {
-            var messagelist = messageManager.GetListInbox();
+            var messagelist = messageManager.GetListInbox(p);
             return View(messagelist);
         }
-        public ActionResult MessageSendbox()
+        public ActionResult MessageSendbox(string p)
         {
-            var messagelist = messageManager.GetListSendbox();
+            var messagelist = messageManager.GetListSendbox(p);
             return View(messagelist);
         }
         public ActionResult GetInboxMessageDetail(int id)

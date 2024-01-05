@@ -1,0 +1,43 @@
+﻿@using EntityLayer.Concrete
+@model List<Admin>
+@{
+    ViewBag.Title = "GetAdminList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <a href="/Authorization/AddAdmin" class="btn btn-info">Yeni Admin Ekle</a>
+            <div class="col-sm-6">
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<table class="table table-hover ">
+    <tr>
+        <th>#</th>
+        <th>Kullanıcı Mail</th>
+        <th>Yetki</th>
+        <th>Durum</th>
+        <th>Pasif Yap</th>
+        <th>Yetki Değiştir</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.AdminID</th>
+            <td>@item.AdminName</td>
+            <th>@item.AdminRole</th>
+            <th>Aktif</th>
+          
+            <td>
+                <a href="/AdminCategory/DeleteCategory/@item.AdminID" class="btn btn-danger">Pasif Yap</a>
+            </td>
+            <td>
+                <a href="/Authorization/EditAdmin/@item.AdminID" class="btn btn-warning">Yetki Değiştir</a>
+            </td>
+
+        </tr>
+    }
+</table>

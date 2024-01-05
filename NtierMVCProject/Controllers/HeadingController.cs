@@ -20,6 +20,12 @@ namespace NtierMVCProject.Controllers
             return View(values);
         }
 
+        public ActionResult HeadingReport()
+        {
+            var values = headingManager.GetList();
+            return View(values);
+        }
+
 
         [HttpGet]
         public ActionResult AddHeading()

@@ -17,12 +17,14 @@ namespace NtierMVCProject.Controllers
         MessageValidator messageValidator = new MessageValidator();
         public ActionResult WriterMessageInbox()
         {
-            var messagelist = messageManager.GetListInbox();
+            string writermailinfo = (string)Session["WriterMail"];
+            var messagelist = messageManager.GetListInbox(writermailinfo);
             return View(messagelist);
         }
         public ActionResult WriterMessageSendbox()
         {
-            var messagelist = messageManager.GetListSendbox();
+            string writermailinfo = (string)Session["WriterMail"];
+            var messagelist = messageManager.GetListSendbox(writermailinfo);
             return View(messagelist);
         }
         public ActionResult WriterGetInboxMessageDetail(int id)
@@ -43,10 +45,11 @@ namespace NtierMVCProject.Controllers
         [HttpPost]
         public ActionResult WriterNewMessage(Message message)
         {
+            string writermailinfo = (string)Session["WriterMail"];
             ValidationResult validationResult = messageValidator.Validate(message);
             if (validationResult.IsValid)
             {
-                message.SenderMail = "alihan@gmail.com";
+                message.SenderMail = writermailinfo;
                 message.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
                 messageManager.MessageAddBl(message);
                 return RedirectToAction("WriterMessageSendbox");
