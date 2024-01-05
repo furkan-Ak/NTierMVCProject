@@ -1,1 +1,1 @@
-.net MVC,Katmanlı Mimari,mssql,html,css,bootstrap, teknolojilerini solide uygun şekilde kullanarak sözlük uygulaması gerçekleştirdim.
+.net MVC,Katmanlı Mimari,mssql,html,css,bootstrap,javascript,c# teknolojilerini solide uygun şekilde kullanarak sözlük uygulaması gerçekleştirdim.
